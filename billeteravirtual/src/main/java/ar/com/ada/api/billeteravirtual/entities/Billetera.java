@@ -2,12 +2,22 @@ package ar.com.ada.api.billeteravirtual.entities;
 
 import java.util.*;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "billetera")
 public class Billetera {
     
+    @Id
+    @Column(name = "billetera_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer billeteraId;
 
+    @OneToOne
+    @JoinColumn(name = "persona_id",referencedColumnName = "persona_id")
     private Persona persona;
 
+    @OneToMany(mappedBy = "billetera",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Cuenta> cuentas = new ArrayList<>();
 
 	public Integer getBilleteraId() {

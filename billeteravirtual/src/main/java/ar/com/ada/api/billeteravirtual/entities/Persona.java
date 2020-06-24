@@ -2,8 +2,15 @@ package ar.com.ada.api.billeteravirtual.entities;
 
 import java.util.Date;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "persona")
 public class Persona {
-    
+	
+	@Id
+    @Column(name = "persona_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer personaId;
 
     private String nombre;
@@ -18,6 +25,7 @@ public class Persona {
 
     private Usuario usuario;
 
+	@OneToOne(mappedBy = "persona",cascade = CascadeType.ALL)
     private Billetera billetera;
 
 	public Integer getPersonaId() {
@@ -58,6 +66,7 @@ public class Persona {
 
 	public void setBilletera(Billetera billetera) {
 		this.billetera = billetera;
+		this.billetera.setPersona(this);
 	}
 
 	public Integer getPaisId() {
