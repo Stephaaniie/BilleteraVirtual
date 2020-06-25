@@ -2,18 +2,28 @@ package ar.com.ada.api.billeteravirtual.entities;
 
 import java.util.Date;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "usuario")
 public class Usuario {
 
+	@Id
+	@Column(name = "usuario_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer usuarioId;
 
     private String username;
 
-    private String possword;
+    private String password;
 
     private String email;
 
-    private Date fechaLoing;
+	@Column(name = "fecha_login")
+    private Date fechaLogin;
 
+	@OneToOne
+	@JoinColumn(name = "persona_id", referencedColumnName = "persona_id")
     private Persona persona;
 
 	public Integer getUsuarioId() {
@@ -32,12 +42,12 @@ public class Usuario {
 		this.username = username;
 	}
 
-	public String getPossword() {
-		return possword;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPossword(String possword) {
-		this.possword = possword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getEmail() {
@@ -48,12 +58,12 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public Date getFechaLoing() {
-		return fechaLoing;
+	public Date getFechaLogin() {
+		return fechaLogin;
 	}
 
-	public void setFechaLoing(Date fechaLoing) {
-		this.fechaLoing = fechaLoing;
+	public void setFechaLoing(Date fechaLogin) {
+		this.fechaLogin = fechaLogin;
 	}
 
 	public Persona getPersona() {
@@ -62,8 +72,6 @@ public class Usuario {
 
 	public void setPersona(Persona persona) {
 		this.persona = persona;
-	}
+	}   
 
-    
-    
 }

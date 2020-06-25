@@ -15,14 +15,18 @@ public class Persona {
 
     private String nombre;
 
+	@Column(name = "pais_id")
     private Integer paisId;
 
+	@Column(name = "tipo_documento")
     private Integer tipoDocumento;
     
     private String documento;
 
+	@Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
 
+	@OneToOne(mappedBy = "persona",cascade = CascadeType.ALL)
     private Usuario usuario;
 
 	@OneToOne(mappedBy = "persona",cascade = CascadeType.ALL)
@@ -58,11 +62,16 @@ public class Persona {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+		this.usuario.setPersona(this);
 	}
 
 	public Billetera getBilletera() {
 		return billetera;
 	}
+
+	/*
+	*	Bidirección  atravez del set. 
+	*/
 
 	public void setBilletera(Billetera billetera) {
 		this.billetera = billetera;

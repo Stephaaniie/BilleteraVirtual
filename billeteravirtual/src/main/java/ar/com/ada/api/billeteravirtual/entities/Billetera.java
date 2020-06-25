@@ -43,4 +43,10 @@ public class Billetera {
 	public void setCuentas(List<Cuenta> cuentas) {
 		this.cuentas = cuentas;
 	}   
+
+	public void agregarCuenta(Cuenta cuenta){
+		this.cuentas.add(cuenta);
+		cuenta.setBilletera(this);
+	}
+
 }
