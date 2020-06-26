@@ -1,4 +1,4 @@
-package ar.com.ada.api.billeteravirtual.models;
+package ar.com.ada.api.billeteravirtual.models.request;
 
 import java.util.Date;
 
@@ -9,6 +9,8 @@ public class RegistrationRequest {
     public int country;
 
     public int identificationType;
+
+    public String identification;
 
     public Date birthDate;
 
