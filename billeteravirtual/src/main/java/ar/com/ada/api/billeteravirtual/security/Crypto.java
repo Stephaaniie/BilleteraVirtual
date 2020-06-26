@@ -1,30 +1,15 @@
 package ar.com.ada.api.billeteravirtual.security;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.*;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 
-
 import javax.crypto.*;
 import javax.crypto.spec.*;
 
-
-/**
- * Crypto
- * 
- * Esta clase es solo a nivel educativo inicial. Cualquier problema de diseño o
- * seguridad estara fuera del alcance del proyecto. Debe usarse bajo su
- * responsabilidad. Basado en Source:
- * //https://howtodoinjava.com/security/aes-256-encryption-decryption/ Con
- * algunos cambios
- */
 public class Crypto {
 
-    // En la vida real, la secretKey estara guardada en algun lado en forma segura y
-    // No sera
-    // estatica
     private static String secretKey = "las papas dia no son tan ricas!!!!";
 
     public static String encrypt(String strToEncrypt, String salt) {
@@ -67,7 +52,6 @@ public class Crypto {
 
     public static String hash(String strToHash, String salt) {
         try {
-
             int iterations = 1000; //A mas iteraciones mas lento
             char[] chars = strToHash.toCharArray();
             byte[] saltBytes = strToHash.getBytes("UTF-8");
