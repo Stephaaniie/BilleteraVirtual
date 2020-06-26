@@ -1,12 +1,16 @@
 package ar.com.ada.api.billeteravirtual.security;
 
 import java.math.BigInteger;
-import java.security.*;
+import java.security.NoSuchAlgorithmException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 
-import javax.crypto.*;
-import javax.crypto.spec.*;
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 
 public class Crypto {
 
@@ -52,6 +56,7 @@ public class Crypto {
 
     public static String hash(String strToHash, String salt) {
         try {
+
             int iterations = 1000; //A mas iteraciones mas lento
             char[] chars = strToHash.toCharArray();
             byte[] saltBytes = strToHash.getBytes("UTF-8");
