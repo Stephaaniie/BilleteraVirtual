@@ -1,6 +1,4 @@
-
-package
-ar.com.ada.api.billeteravirtual.controllers;
+package ar.com.ada.api.billeteravirtual.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,48 +11,44 @@ import ar.com.ada.api.billeteravirtual.models.request.LoginRequest;
 import ar.com.ada.api.billeteravirtual.models.request.RegistrationRequest;
 import ar.com.ada.api.billeteravirtual.models.response.JwtResponse;
 import ar.com.ada.api.billeteravirtual.models.response.RegistrationResponse;
+import ar.com.ada.api.billeteravirtual.security.jwt.JWTTokenUtil;
 import ar.com.ada.api.billeteravirtual.services.JWTUserDetailsService;
 import ar.com.ada.api.billeteravirtual.services.UsuarioService;
 
 /**
-* AuthController
-*/
+ * AuthController
+ */
 @RestController
 public class AuthController {
 
-   @Autowired
-   UsuarioService usuarioService;
+    @Autowired
+    UsuarioService usuarioService;
 
-   /*
-    * @Autowired private AuthenticationManager authenticationManager;
-    */
-   @Autowired
-   private JWTTokenUtil jwtTokenUtil;
+    @Autowired
+    private JWTTokenUtil jwtTokenUtil;
 
-   @Autowired
-   private JWTUserDetailsService userDetailsService;
-   //Auth : authentication ->
-   @PostMapping("auth/register")
-   public ResponseEntity<RegistrationResponse> postRegisterUser(@RequestBody RegistrationRequest req) {
-       RegistrationResponse r = new RegistrationResponse();
-       // aca creamos la persona y el usuario a traves del service.
-       //Insertar codigo aqui
-       //usuarioService.crearUsuario(parametros de req);
-       r.isOk = true;
-       r.message = "Te registraste con exitoooo!!!!!!!";
-       r.userId = 0; // <-- AQUI ponemos el numerito de id para darle a front!
-       return ResponseEntity.ok(r);
-   }
+    @Autowired
+    private JWTUserDetailsService userDetailsService;
 
-   @PostMapping("auth/login") // probando nuestro login
-   public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginRequest authenticationRequest) throws Exception {
+    @PostMapping("auth/register")
+    public ResponseEntity<RegistrationResponse> postRegisterUser(@RequestBody RegistrationRequest req) {
+        RegistrationResponse r = new RegistrationResponse();
+        r.isOk = true;
+        r.message = "Te registraste con exitoooo!!!!!!!";
+        r.userId = 0; 
+        return ResponseEntity.ok(r);
 
-       usuarioService.login(authenticationRequest.username, authenticationRequest.password);
+    }
 
-       UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.username);
+    @PostMapping("auth/login") 
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginRequest authenticationRequest) throws Exception {
 
-       String token = jwtTokenUtil.generateToken(userDetails);
+        usuarioService.login(authenticationRequest.username, authenticationRequest.password);
 
-       return ResponseEntity.ok(new JwtResponse(token));
-   }
+        UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.username);
+
+        String token = jwtTokenUtil.generateToken(userDetails);
+
+        return ResponseEntity.ok(new JwtResponse(token));
+    }
 }
