@@ -6,9 +6,9 @@ public class RegistrationRequest {
     
     public String fullName;
     
-    public int country;
+    public Integer country;
 
-    public int identificationType;
+    public Integer identificationType;
 
     public String identification;
 

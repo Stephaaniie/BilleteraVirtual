@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import ar.com.ada.api.billeteravirtual.entities.Usuario;
 import ar.com.ada.api.billeteravirtual.models.request.*;
 import ar.com.ada.api.billeteravirtual.models.response.*;
 import ar.com.ada.api.billeteravirtual.security.jwt.JWTTokenUtil;
@@ -25,9 +26,15 @@ public class AuthController {
     @PostMapping("auth/register")
     public ResponseEntity<RegistrationResponse> postRegisterUser(@RequestBody RegistrationRequest req) {
         RegistrationResponse r = new RegistrationResponse();
+        
+        Usuario usuario = usuarioService.crearUsuario(req.fullName, req.country, req.identificationType, req.identification, req.birthDate, req.email, req.password);
+
         r.isOk = true;
+
         r.message = "Te registraste con exitoooo!!!!!!!";
-        r.userId = 0; 
+        
+        r.userId = usuario.getUsuarioId(); 
+        
         return ResponseEntity.ok(r);
 
     }
