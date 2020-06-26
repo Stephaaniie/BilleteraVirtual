@@ -18,7 +18,7 @@ public class Persona {
 	@Column(name = "pais_id")
     private Integer paisId;
 
-	@Column(name = "tipo_documento")
+	@Column(name = "tipo_documento_id")
     private Integer tipoDocumento;
     
     private String documento;
@@ -68,10 +68,6 @@ public class Persona {
 	public Billetera getBilletera() {
 		return billetera;
 	}
-
-	/*
-	*	Bidirección  atravez del set. 
-	*/
 
 	public void setBilletera(Billetera billetera) {
 		this.billetera = billetera;
