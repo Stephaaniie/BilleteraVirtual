@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import ar.com.ada.api.billeteravirtual.security.Crypto;
+
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -72,6 +74,14 @@ public class Usuario {
 
 	public void setPersona(Persona persona) {
 		this.persona = persona;
-	}   
+	}
+
+	public void cargarUsuario(String email,String password) {
+        this.setUsername(email);
+        
+        this.setEmail(email);
+        
+        this.setPassword(Crypto.encrypt(password, email));
+    }   
 
 }

@@ -151,4 +151,23 @@ public class Transaccion {
 		this.aCuentaId = aCuentaId;
 	}
 
+	public void crearTransaccion(BigDecimal saldo, Cuenta cuenta, Billetera billetera, String detalle, String conceptoOperacion) {
+
+		this.setCuenta(cuenta);
+        this.setMoneda(cuenta.getMoneda());
+
+        this.setFecha(new Date());
+        this.setImporte(saldo);
+		this.setDetalle(detalle);
+		this.setConceptoOperacion(conceptoOperacion);
+
+		this.setTipoOperacion(1);
+		this.setEstadoId(1);
+
+		this.setDeCuentaId(cuenta.getCuentaId());
+        this.setDeUsuarioId(billetera.getPersona().getUsuario().getUsuarioId());
+        this.setaUsuarioId(billetera.getPersona().getUsuario().getUsuarioId());
+		this.setaCuentaId(cuenta.getCuentaId());
+		cuenta.agregarTransaccion(this);
+	}
 }

@@ -1,5 +1,6 @@
 package ar.com.ada.api.billeteravirtual.entities;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import javax.persistence.*;
@@ -48,5 +49,29 @@ public class Billetera {
 		this.cuentas.add(cuenta);
 		cuenta.setBilletera(this);
 	}
+
+	public void seCargoCuenta(String moneda, BigDecimal saldo, String detalle, String conceptoOperacion) {
+		for (Cuenta x : this.cuentas) {
+			if (x.getMoneda().equals(moneda)) {
+				Transaccion transaccion = new Transaccion();
+				transaccion.crearTransaccion(saldo, x, this, detalle, conceptoOperacion);
+				x.actualizarSaldo(saldo);
+			}
+		}
+	}
+
+	public void crearCuentas() {
+        Cuenta cuentaPesos = new Cuenta();
+        Cuenta cuentaDolares = new Cuenta();
+
+        cuentaPesos.setSaldo(new BigDecimal(0));
+        cuentaDolares.setSaldo(new BigDecimal(0));
+
+        cuentaPesos.setMoneda("ARS");
+        cuentaDolares.setMoneda("USD");
+
+        this.agregarCuenta(cuentaPesos);
+        this.agregarCuenta(cuentaDolares);
+    }
 
 }

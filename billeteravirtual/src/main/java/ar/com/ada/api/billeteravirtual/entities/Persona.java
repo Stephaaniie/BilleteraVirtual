@@ -97,4 +97,16 @@ public class Persona {
 	public void setTipoDocumento(Integer tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
 	}
+
+	public void cargarPersona(Date fechaNacimiento, Integer paisId,Integer tipoDocumento,String documento, String nombre) {
+        this.setTipoDocumento(tipoDocumento);
+        
+        this.setDocumento(documento);
+        
+        this.setFechaNacimiento(fechaNacimiento);
+        
+        this.setNombre(nombre);
+        
+        this.setPaisId(paisId);  
+    }
 }

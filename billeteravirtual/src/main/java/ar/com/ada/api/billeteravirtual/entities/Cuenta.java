@@ -68,5 +68,10 @@ public class Cuenta {
 		this.transacciones.add(transaccion);
 		transaccion.setCuenta(this);
 	}
+
+	public void actualizarSaldo(BigDecimal saldo) {
+		BigDecimal saldoActual = this.getSaldo();
+		this.setSaldo(saldoActual.add(saldo));
+	}
     
 }

@@ -1,9 +1,11 @@
 package ar.com.ada.api.billeteravirtual.services;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.com.ada.api.billeteravirtual.entities.Billetera;
+import ar.com.ada.api.billeteravirtual.entities.*;
 import ar.com.ada.api.billeteravirtual.repos.BilleteraRepository;
 
 @Service
@@ -15,11 +17,21 @@ public class BilleteraService {
     public void grabar(Billetera billetera) {
         billeteraRepository.save(billetera);
     }
-    /* 1.Metodo: Cargar saldo
-    1.1-- Recibir un importe, se busca una billetera por id,
-    se busca una cuenta por la moneda
+
+
+    public void cargarSaldo(Integer billeteraId, BigDecimal saldo, String moneda,String detalle, String conceptoOperacion) {
+        Billetera billetera = billeteraRepository.findByBilleteraId(billeteraId);
+        
+        billetera.seCargoCuenta(moneda, saldo, detalle, conceptoOperacion);
+
+        this.grabar(billetera);
+    }
+
+    
+    /*
     1.2-- hacer transaccion 
-    1.3-- actualizar el saldo de la billetera */
+    1.3-- actualizar el saldo de la billetera
+    */
 
 
     /* 2. Metodo: enviar plata
