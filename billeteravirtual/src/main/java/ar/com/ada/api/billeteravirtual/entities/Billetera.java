@@ -5,6 +5,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import ar.com.ada.api.billeteravirtual.models.response.BilleteraResponse;
+
 @Entity
 @Table(name = "billetera")
 public class Billetera {
@@ -50,16 +52,25 @@ public class Billetera {
 		cuenta.setBilletera(this);
 	}
 
-	public void seCargoCuenta(String moneda, BigDecimal saldo, String detalle, String conceptoOperacion) {
-		for (Cuenta x : this.cuentas) {
-			if (x.getMoneda().equals(moneda)) {
-				Transaccion transaccion = new Transaccion();
-				transaccion.crearTransaccion(saldo, x, this, detalle, conceptoOperacion);
-				x.actualizarSaldo(saldo);
-			}
-		}
+	public void cargarCuenta(String moneda, BigDecimal saldo, String detalle, String conceptoOperacion) {
+		Cuenta cuenta = getCuentaPorMoneda(moneda);
+
+		if (cuenta != null) {
+			Transaccion transaccion = new Transaccion();
+			transaccion.crearTransaccion(saldo, cuenta, this, detalle, conceptoOperacion);
+			cuenta.actualizarSaldo(saldo);
+		}	
 	}
 
+	public Cuenta getCuentaPorMoneda(String moneda){
+		Cuenta cuenta = null;
+		for (Cuenta x : this.cuentas) {
+			if (x.getMoneda().equals(moneda)) {
+				cuenta = x;
+			}
+		}
+		return cuenta;
+	}
 	public void crearCuentas() {
         Cuenta cuentaPesos = new Cuenta();
         Cuenta cuentaDolares = new Cuenta();
@@ -73,5 +84,18 @@ public class Billetera {
         this.agregarCuenta(cuentaPesos);
         this.agregarCuenta(cuentaDolares);
     }
+
+	public List<BilleteraResponse> getCuentasResponse() {
+		List<BilleteraResponse> responses = new ArrayList<>();
+
+		BilleteraResponse response = new BilleteraResponse();
+
+		for (Cuenta x : this.cuentas) {
+			response.saldo = x.getSaldo();
+			response.moneda = x.getMoneda();
+			responses.add(response);
+		}
+		return responses;
+	}
 
 }
