@@ -109,4 +109,8 @@ public class Persona {
         
         this.setPaisId(paisId);  
     }
+
+	public Integer getUsuarioId() {
+		return this.getUsuario().getUsuarioId();
+	}
 }

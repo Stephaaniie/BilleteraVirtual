@@ -49,17 +49,22 @@ public class Billetera {
 
 	public void agregarCuenta(Cuenta cuenta){
 		this.cuentas.add(cuenta);
+		
 		cuenta.setBilletera(this);
 	}
 
-	public void cargarCuenta(String moneda, BigDecimal saldo, String detalle, String conceptoOperacion) {
+	public void cargarCuenta(String moneda,BigDecimal saldo, String detalle, String conceptoOperacion,Integer tiipoOperacion) {
 		Cuenta cuenta = getCuentaPorMoneda(moneda);
 
 		if (cuenta != null) {
-			Transaccion transaccion = new Transaccion();
-			transaccion.crearTransaccion(saldo, cuenta, this, detalle, conceptoOperacion);
-			cuenta.actualizarSaldo(saldo);
+			Transaccion transaccion = cuenta.crearTransaccion(saldo,this.getUsuarioId(), detalle, conceptoOperacion, tiipoOperacion);
+		
+			cuenta.agregarTransaccion(transaccion);
 		}	
+	}
+
+	public Integer getUsuarioId() {
+		return this.persona.getUsuarioId();
 	}
 
 	public Cuenta getCuentaPorMoneda(String moneda){
@@ -71,6 +76,7 @@ public class Billetera {
 		}
 		return cuenta;
 	}
+
 	public void crearCuentas() {
         Cuenta cuentaPesos = new Cuenta();
         Cuenta cuentaDolares = new Cuenta();
@@ -88,14 +94,33 @@ public class Billetera {
 	public List<BilleteraResponse> getCuentasResponse() {
 		List<BilleteraResponse> responses = new ArrayList<>();
 
-		BilleteraResponse response = new BilleteraResponse();
-
 		for (Cuenta x : this.cuentas) {
+			BilleteraResponse response = new BilleteraResponse();
+
 			response.saldo = x.getSaldo();
+			
 			response.moneda = x.getMoneda();
+			
 			responses.add(response);
 		}
 		return responses;
+	}
+
+	public void enviarSaldo(Billetera aBilletera,String moneda,BigDecimal saldo, String detalle, String conceptoOperacion,Integer tiipoOperacion) {
+		Cuenta cSaliente = this.getCuentaPorMoneda(moneda);
+
+		Cuenta cEntrante = this.getCuentaPorMoneda(moneda);
+
+		Transaccion tSaliente = cSaliente.crearTransaccion(saldo, this.getUsuarioId(), detalle, conceptoOperacion, tiipoOperacion);
+		tSaliente.setaCuentaId(cEntrante.getCuentaId());
+		tSaliente.setaUsuarioId(aBilletera.getUsuarioId());
+
+		Transaccion tEntrante = cEntrante.crearTransaccion(saldo, aBilletera.getUsuarioId(), detalle, conceptoOperacion, tiipoOperacion);
+		tEntrante.setDeCuentaId(cSaliente.getCuentaId());
+		tEntrante.setDeUsuarioId(this.getUsuarioId());
+
+		cSaliente.agregarTransaccion(tSaliente);
+		cEntrante.agregarTransaccion(tEntrante);
 	}
 
 }

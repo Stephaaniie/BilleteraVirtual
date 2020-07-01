@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.ada.api.billeteravirtual.entities.Billetera;
@@ -39,14 +40,13 @@ public class BilleteraController {
         return ResponseEntity.ok(responses);
     }    
 
+    @PostMapping("billeteras/{id}/recargas")
+    public ResponseEntity<BilleteraResponse> cargarSaldos(@PathVariable Integer id) { 
+
+        return null;
+    }
     /*
-    * webMetodo 1:
-
-            consultar saldo: GET 
-            URL:/
-
       webMetodo 2:
-
             cargar saldo: POST
             URL:/billeteras/{id}/recargas
             requestBody: 
@@ -67,7 +67,5 @@ public class BilleteraController {
                 "motivo":
                 "detalleDelMotivo":
             }
-
-
     */
 }

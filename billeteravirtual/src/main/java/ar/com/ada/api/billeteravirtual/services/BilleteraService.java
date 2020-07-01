@@ -21,27 +21,26 @@ public class BilleteraService {
     }
 
 
-    public void cargarSaldo(Integer billeteraId, BigDecimal saldo, String moneda,String detalle, String conceptoOperacion) {
+    public void cargarSaldo(Integer billeteraId, BigDecimal saldo, String moneda,String detalle, String conceptoOperacion,Integer tipoOperacion) {
         Billetera billetera = billeteraRepository.findByBilleteraId(billeteraId);
         
-        billetera.cargarCuenta(moneda, saldo, detalle, conceptoOperacion);
+        billetera.cargarCuenta(moneda,saldo, detalle, conceptoOperacion,1);
 
         this.grabar(billetera);
     }
 
-    public void enviarSaldo(Integer deBilleteraId, Integer aBilleteraId, String Moneda, Integer importe) {
-        Billetera deBilletera = billeteraRepository.findByBilleteraId(deBilleteraId);
+    public void enviarSaldo(Integer deBilleteraId, Integer aBilleteraId, String moneda, BigDecimal saldo,String detalle,String conceptoOperacion ,Integer tipoOperacion) {
+        Billetera deBilletera = this.buscarPorId(deBilleteraId);
 
-        Billetera aBilletera = billeteraRepository.findByBilleteraId(aBilleteraId);
+        Billetera aBilletera = this.buscarPorId(aBilleteraId);
 
+        deBilletera.enviarSaldo(aBilletera,moneda,saldo,detalle,conceptoOperacion,tipoOperacion);
 
+        this.grabar(aBilletera);
+
+        this.grabar(deBilletera);
     }
-    /* 2. Metodo: enviar plata
-    2.1-- recibir un importe, la moneda en la que va a estar ese importe
-    recibir una billetera de origen y otra de destino
-    2.2-- actualizar los saldos de las cuentas (a una se le suma y a la otra se le resta)
-    2.3-- generar dos transacciones
-    */
+    
     public BigDecimal consultarSaldo(Integer billeteraId, String moneda) {
         Billetera billetera = billeteraRepository.findByBilleteraId(billeteraId);
 

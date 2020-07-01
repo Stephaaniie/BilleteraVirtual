@@ -11,7 +11,9 @@ public class Cuenta {
 	@Id
 	@Column(name = "cuenta_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer cuentaId;
+	private Integer cuentaId;
+	
+	private static final Integer ENTRADA = 1;
 
     private BigDecimal saldo;
 
@@ -65,12 +67,50 @@ public class Cuenta {
 	}
 
 	public void agregarTransaccion(Transaccion transaccion){
+		
+		if (transaccion.esTransacionEntrada(ENTRADA)) {
+
+			this.actualizarSaldo(transaccion.getImporte());
+		}else{
+
+			this.descontarSaldo(transaccion.getImporte());
+		}
 		this.transacciones.add(transaccion);
+		
 		transaccion.setCuenta(this);
+	}
+
+	public Transaccion crearTransaccion(BigDecimal saldo,Integer id, String detalle, String conceptoOperacion, Integer tiipoOperacion) {
+		Transaccion transaccion = new Transaccion();
+
+		transaccion.setCuenta(this);
+
+		transaccion.setMoneda(this.getMoneda());
+		
+		transaccion.crearTransaccion(saldo, detalle, conceptoOperacion, tiipoOperacion);
+		
+		if (transaccion.esTransacionEntrada(ENTRADA)) {
+			transaccion.setaUsuarioId(id);
+
+			transaccion.setaCuentaId(this.getCuentaId());
+		}else{
+			transaccion.setDeUsuarioId(this.getCuentaId());
+
+			transaccion.setDeUsuarioId(id);
+		}		
+		return transaccion;
+	}
+
+
+	public void descontarSaldo(BigDecimal saldo) {
+		BigDecimal saldoActual = this.getSaldo();
+		
+		this.setSaldo(saldoActual.subtract(saldo));
 	}
 
 	public void actualizarSaldo(BigDecimal saldo) {
 		BigDecimal saldoActual = this.getSaldo();
+		
 		this.setSaldo(saldoActual.add(saldo));
 	}
     

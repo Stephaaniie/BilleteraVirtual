@@ -45,8 +45,8 @@ public class Transaccion {
     private Integer deCuentaId;
 
 	@Column(name = "a_cuenta_id")
-    private Integer aCuentaId;
-
+	private Integer aCuentaId;
+	
 	public Integer getTransaccionId() {
 		return transaccionId;
 	}
@@ -151,23 +151,21 @@ public class Transaccion {
 		this.aCuentaId = aCuentaId;
 	}
 
-	public void crearTransaccion(BigDecimal saldo, Cuenta cuenta, Billetera billetera, String detalle, String conceptoOperacion) {
-
-		this.setCuenta(cuenta);
-        this.setMoneda(cuenta.getMoneda());
-
+	public void crearTransaccion(BigDecimal saldo, String detalle, String conceptoOperacion, Integer tiipoOperacion) {
         this.setFecha(new Date());
-        this.setImporte(saldo);
+		
+		this.setImporte(saldo);
+		
 		this.setDetalle(detalle);
+		
 		this.setConceptoOperacion(conceptoOperacion);
 
-		this.setTipoOperacion(1);
+		this.setTipoOperacion(tiipoOperacion);
+		
 		this.setEstadoId(1);
+	}
 
-		this.setDeCuentaId(cuenta.getCuentaId());
-        this.setDeUsuarioId(billetera.getPersona().getUsuario().getUsuarioId());
-        this.setaUsuarioId(billetera.getPersona().getUsuario().getUsuarioId());
-		this.setaCuentaId(cuenta.getCuentaId());
-		cuenta.agregarTransaccion(this);
+	public boolean esTransacionEntrada(Integer entrante) {
+		return this.tipoOperacion.equals(entrante);
 	}
 }
