@@ -53,14 +53,13 @@ public class Billetera {
 		cuenta.setBilletera(this);
 	}
 
-	public void cargarCuenta(String moneda,BigDecimal saldo, String detalle, String conceptoOperacion,Integer tiipoOperacion) {
+	public void cargarCuenta(String moneda,BigDecimal saldo, String detalle, String conceptoOperacion,Integer tipoOperacion) {
 		Cuenta cuenta = getCuentaPorMoneda(moneda);
 
-		if (cuenta != null) {
-			Transaccion transaccion = cuenta.crearTransaccion(saldo,this.getUsuarioId(), detalle, conceptoOperacion, tiipoOperacion);
+		Transaccion transaccion = cuenta.crearTransaccion(saldo,this,cuenta, detalle, conceptoOperacion, tipoOperacion);
 		
-			cuenta.agregarTransaccion(transaccion);
-		}	
+		cuenta.agregarTransaccion(transaccion);
+		
 	}
 
 	public Integer getUsuarioId() {
@@ -106,21 +105,12 @@ public class Billetera {
 		return responses;
 	}
 
-	public void enviarSaldo(Billetera aBilletera,String moneda,BigDecimal saldo, String detalle, String conceptoOperacion,Integer tiipoOperacion) {
+	public void enviarSaldo(Billetera aBilletera,String moneda,BigDecimal saldo, String detalle, String conceptoOperacion) {
 		Cuenta cSaliente = this.getCuentaPorMoneda(moneda);
-
+		
 		Cuenta cEntrante = this.getCuentaPorMoneda(moneda);
 
-		Transaccion tSaliente = cSaliente.crearTransaccion(saldo, this.getUsuarioId(), detalle, conceptoOperacion, tiipoOperacion);
-		tSaliente.setaCuentaId(cEntrante.getCuentaId());
-		tSaliente.setaUsuarioId(aBilletera.getUsuarioId());
-
-		Transaccion tEntrante = cEntrante.crearTransaccion(saldo, aBilletera.getUsuarioId(), detalle, conceptoOperacion, tiipoOperacion);
-		tEntrante.setDeCuentaId(cSaliente.getCuentaId());
-		tEntrante.setDeUsuarioId(this.getUsuarioId());
-
-		cSaliente.agregarTransaccion(tSaliente);
-		cEntrante.agregarTransaccion(tEntrante);
+		cSaliente.crearTransaccion(saldo,cSaliente,cEntrante,aBilletera, this, detalle, conceptoOperacion);
 	}
 
 }

@@ -16,25 +16,29 @@ public class BilleteraService {
     @Autowired
     BilleteraRepository billeteraRepository;
 
+    @Autowired
+    UsuarioService uService;
+
     public void grabar(Billetera billetera) {
         billeteraRepository.save(billetera);
     }
 
 
-    public void cargarSaldo(Integer billeteraId, BigDecimal saldo, String moneda,String detalle, String conceptoOperacion,Integer tipoOperacion) {
-        Billetera billetera = billeteraRepository.findByBilleteraId(billeteraId);
+    public void cargarSaldo(Billetera billetera, BigDecimal saldo, String moneda,String detalle, String conceptoOperacion,Integer tipoOperacion) {
         
         billetera.cargarCuenta(moneda,saldo, detalle, conceptoOperacion,1);
 
         this.grabar(billetera);
     }
 
-    public void enviarSaldo(Integer deBilleteraId, Integer aBilleteraId, String moneda, BigDecimal saldo,String detalle,String conceptoOperacion ,Integer tipoOperacion) {
+    public void enviarSaldo(Integer deBilleteraId, String email, String moneda, BigDecimal saldo,String detalle,String conceptoOperacion) {
         Billetera deBilletera = this.buscarPorId(deBilleteraId);
 
-        Billetera aBilletera = this.buscarPorId(aBilleteraId);
+        Usuario usuario =  uService.getUsuarioPorEmail(email);
 
-        deBilletera.enviarSaldo(aBilletera,moneda,saldo,detalle,conceptoOperacion,tipoOperacion);
+        Billetera aBilletera = usuario.getBilletera();
+
+        deBilletera.enviarSaldo(aBilletera,moneda,saldo,detalle,conceptoOperacion);
 
         this.grabar(aBilletera);
 
@@ -54,5 +58,7 @@ public class BilleteraService {
 
 	public List<BilleteraResponse> getCuentas(Billetera billetera) {
         return billetera.getCuentasResponse();
-	}
+    }
+    
+
 }

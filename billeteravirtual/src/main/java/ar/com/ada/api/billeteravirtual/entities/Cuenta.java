@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.*;
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table(name = "cuenta")
 public class Cuenta {
@@ -24,7 +27,8 @@ public class Cuenta {
     private Billetera billetera;
 
 	@OneToMany(mappedBy = "cuenta",cascade = CascadeType.ALL)
-    private List<Transaccion> transacciones = new ArrayList<>();
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Transaccion> transacciones = new ArrayList<>();
 
 	public Integer getCuentaId() {
 		return cuentaId;
@@ -67,51 +71,67 @@ public class Cuenta {
 	}
 
 	public void agregarTransaccion(Transaccion transaccion){
-		
-		if (transaccion.esTransacionEntrada(ENTRADA)) {
-
-			this.actualizarSaldo(transaccion.getImporte());
-		}else{
-
-			this.descontarSaldo(transaccion.getImporte());
-		}
 		this.transacciones.add(transaccion);
 		
 		transaccion.setCuenta(this);
+
+		actualizarSaldo(transaccion);
 	}
 
-	public Transaccion crearTransaccion(BigDecimal saldo,Integer id, String detalle, String conceptoOperacion, Integer tiipoOperacion) {
+	public Transaccion crearTransaccion(BigDecimal saldo, String detalle, String conceptoOperacion, Integer tipoOperacion) {
 		Transaccion transaccion = new Transaccion();
 
 		transaccion.setCuenta(this);
 
 		transaccion.setMoneda(this.getMoneda());
 		
-		transaccion.crearTransaccion(saldo, detalle, conceptoOperacion, tiipoOperacion);
-		
-		if (transaccion.esTransacionEntrada(ENTRADA)) {
-			transaccion.setaUsuarioId(id);
-
-			transaccion.setaCuentaId(this.getCuentaId());
-		}else{
-			transaccion.setDeUsuarioId(this.getCuentaId());
-
-			transaccion.setDeUsuarioId(id);
-		}		
+		transaccion.crearTransaccion(saldo, detalle, conceptoOperacion, tipoOperacion);
+				
 		return transaccion;
 	}
 
-
-	public void descontarSaldo(BigDecimal saldo) {
-		BigDecimal saldoActual = this.getSaldo();
-		
-		this.setSaldo(saldoActual.subtract(saldo));
+	public void actualizarSaldo(Transaccion transaccion) {
+		this.setSaldo(transaccion.esTransacionEntrada(ENTRADA)?
+		(this.getSaldo().add(transaccion.getImporte())):
+		(this.getSaldo().subtract(transaccion.getImporte())));
 	}
 
-	public void actualizarSaldo(BigDecimal saldo) {
-		BigDecimal saldoActual = this.getSaldo();
-		
-		this.setSaldo(saldoActual.add(saldo));
+	public void actualizarUsuarios(Transaccion transaccion,Integer id) {
+		transaccion.setaUsuarioId(transaccion.getTipoOperacion().equals(ENTRADA)?
+		(id):this.getCuentaId());
 	}
-    
+
+	public void crearTransaccion(BigDecimal saldo, Cuenta cSaliente, Cuenta cEntrante, Billetera eBilletera,Billetera sBilletera, String detalle, String conceptoOperacion) {
+		Transaccion tEntrante = cEntrante.crearTransaccion(saldo, detalle, conceptoOperacion,1);
+		
+		Transaccion tSaliente = cSaliente.crearTransaccion(saldo, detalle, conceptoOperacion,0);
+
+		tEntrante.setaCuentaId(cSaliente.getCuentaId());
+
+		tEntrante.setaUsuarioId(sBilletera.getUsuarioId());
+
+		tSaliente.setDeCuentaId(cSaliente.getCuentaId());
+
+		tSaliente.setDeUsuarioId(sBilletera.getUsuarioId());
+
+		cSaliente.agregarTransaccion(tSaliente);
+		
+		cEntrante.agregarTransaccion(tEntrante);
+	}
+
+	public Transaccion crearTransaccion(BigDecimal saldo, Billetera billetera, Cuenta cuenta, String detalle,String conceptoOperacion, Integer tipoOperacion) {
+		
+		Transaccion transaccion = cuenta.crearTransaccion(saldo, detalle, conceptoOperacion, tipoOperacion);
+
+		transaccion.setDeCuentaId(cuenta.getCuentaId());
+
+		transaccion.setDeUsuarioId(billetera.getUsuarioId());
+		
+		transaccion.setaUsuarioId(billetera.getUsuarioId());
+		
+		transaccion.setaCuentaId(cuenta.getCuentaId());
+				
+		return transaccion;
+	}
+
 }

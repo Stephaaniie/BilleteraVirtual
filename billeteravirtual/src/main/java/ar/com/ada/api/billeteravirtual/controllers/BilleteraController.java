@@ -5,13 +5,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import ar.com.ada.api.billeteravirtual.entities.Billetera;
-import ar.com.ada.api.billeteravirtual.models.response.BilleteraResponse;
+import ar.com.ada.api.billeteravirtual.models.request.*;
+import ar.com.ada.api.billeteravirtual.models.response.*;
 import ar.com.ada.api.billeteravirtual.services.BilleteraService;
 
 @RestController
@@ -41,31 +38,28 @@ public class BilleteraController {
     }    
 
     @PostMapping("billeteras/{id}/recargas")
-    public ResponseEntity<BilleteraResponse> cargarSaldos(@PathVariable Integer id) { 
+    public ResponseEntity<TransaccionResponse> cargarSaldos(@PathVariable Integer id, @RequestBody CargasRequest recarga) { 
+        TransaccionResponse response = new TransaccionResponse();
 
-        return null;
+        service.cargarSaldo(service.buscarPorId(id), recarga.importe ,recarga.moneda,recarga.detalle, recarga.motivo, 1);
+        
+        response.isOk = true;
+
+        response.menssage = "La recarga se realizo exitosamente";
+
+        return ResponseEntity.ok(response);
     }
-    /*
-      webMetodo 2:
-            cargar saldo: POST
-            URL:/billeteras/{id}/recargas
-            requestBody: 
-            {
-                "moneda":
-                "importe":
-            }
 
-        webMetodo 3:
-            
-            enviar saldo: POST
-            URL:/billetera/{id}/envios
-            requestBody:
-            {
-                "moneda":
-                "importe":
-                "email":
-                "motivo":
-                "detalleDelMotivo":
-            }
-    */
+    @PostMapping("billeteras/{id}/envios")
+    public ResponseEntity<TransaccionResponse> enviarSaldo(@PathVariable Integer id,@RequestBody EnvioDeSaldoRequest envio) { 
+        TransaccionResponse response = new TransaccionResponse();
+
+        service.enviarSaldo(id, envio.email, envio.moneda, envio.saldo, envio.detalle, envio.motivo);
+        
+        response.isOk = true;
+
+        response.menssage = "El envio se realizo exitosamente";
+
+        return ResponseEntity.ok(response);
+    }
 }

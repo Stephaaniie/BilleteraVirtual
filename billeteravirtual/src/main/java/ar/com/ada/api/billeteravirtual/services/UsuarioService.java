@@ -50,9 +50,13 @@ public class UsuarioService {
         persona.setBilletera(billetera);
 
         billeteraService.grabar(billetera);
-        billeteraService.cargarSaldo(billetera.getBilleteraId(), new BigDecimal(500),"ARS","Bienvenido al sistemaGracias por crearte unUsuario de Regalo te damos $500","regalo",1);
+        billeteraService.cargarSaldo(billetera, new BigDecimal(500),"ARS","Bienvenido al sistemaGracias por crearte unUsuario de Regalo te damos $500","regalo",1);
         
         return usuario;
+    }
+
+    public Usuario getUsuarioPorEmail(String email) {
+		return usuarioRepository.findByEmail(email);   
     }
 
 }

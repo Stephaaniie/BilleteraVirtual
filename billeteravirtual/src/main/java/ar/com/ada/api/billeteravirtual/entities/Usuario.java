@@ -82,6 +82,11 @@ public class Usuario {
         this.setEmail(email);
         
         this.setPassword(Crypto.encrypt(password, email));
-    }   
+    }
+
+	public Billetera getBilletera() {
+		return this.getPersona().getBilletera();
+	}   
+
 
 }
