@@ -38,7 +38,7 @@ public class BilleteraService {
 
         Billetera aBilletera = usuario.getBilletera();
 
-        deBilletera.enviarSaldo(aBilletera,moneda,saldo,detalle,conceptoOperacion);
+        deBilletera.enviarSaldo(deBilletera,aBilletera,moneda,saldo,detalle,conceptoOperacion);
 
         this.grabar(aBilletera);
 

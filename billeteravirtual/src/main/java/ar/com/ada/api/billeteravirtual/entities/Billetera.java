@@ -105,10 +105,10 @@ public class Billetera {
 		return responses;
 	}
 
-	public void enviarSaldo(Billetera aBilletera,String moneda,BigDecimal saldo, String detalle, String conceptoOperacion) {
-		Cuenta cSaliente = this.getCuentaPorMoneda(moneda);
+	public void enviarSaldo(Billetera deBilletera, Billetera aBilletera,String moneda,BigDecimal saldo, String detalle, String conceptoOperacion) {
+		Cuenta cSaliente = deBilletera.getCuentaPorMoneda(moneda);
 		
-		Cuenta cEntrante = this.getCuentaPorMoneda(moneda);
+		Cuenta cEntrante = aBilletera.getCuentaPorMoneda(moneda);
 
 		cSaliente.crearTransaccion(saldo,cSaliente,cEntrante,aBilletera, this, detalle, conceptoOperacion);
 	}

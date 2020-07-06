@@ -106,16 +106,19 @@ public class Cuenta {
 		
 		Transaccion tSaliente = cSaliente.crearTransaccion(saldo, detalle, conceptoOperacion,0);
 
-		tEntrante.setaCuentaId(cSaliente.getCuentaId());
+		tEntrante.setaCuentaId(cEntrante.getCuentaId());
+		tEntrante.setaUsuarioId(eBilletera.getUsuarioId());
 
-		tEntrante.setaUsuarioId(sBilletera.getUsuarioId());
+		tEntrante.setDeCuentaId(cSaliente.getCuentaId());
+		tEntrante.setDeUsuarioId(eBilletera.getUsuarioId());
 
 		tSaliente.setDeCuentaId(cSaliente.getCuentaId());
-
 		tSaliente.setDeUsuarioId(sBilletera.getUsuarioId());
 
+		tSaliente.setaCuentaId(cEntrante.getCuentaId());
+		tSaliente.setaUsuarioId(eBilletera.getUsuarioId());
+
 		cSaliente.agregarTransaccion(tSaliente);
-		
 		cEntrante.agregarTransaccion(tEntrante);
 	}
 
