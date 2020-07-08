@@ -76,8 +76,8 @@ class DemoApplicationTests {
 	@Test
 	void EnviarSaldoTest() {
 		
-		Usuario usuarioEmisor = usuarioService.crearUsuario("Karen Envia", 32, 5 , "21231123", new Date(), "karenenvia@gmail.com", "a12345");
-		Usuario usuarioReceptor = usuarioService.crearUsuario("Claudia Recibe", 32, 5 , "21231123", new Date(), "claudiarecibe@gmail.com", "a12345");
+		Usuario usuarioEmisor = usuarioService.crearUsuario("Karen Envia", 32, 5 , "294444444", new Date(), "karenenvi@gmail.com", "a12345");
+		Usuario usuarioReceptor = usuarioService.crearUsuario("Claudia Recibe", 32, 5 , "295555555", new Date(), "claudiarecib@gmail.com", "a12345");
 		
 		Integer borigen = usuarioEmisor.getPersona().getBilletera().getBilleteraId();
 		Integer bdestino = usuarioReceptor.getPersona().getBilletera().getBilleteraId();
@@ -92,9 +92,11 @@ class DemoApplicationTests {
 
 		//AFIRMAMOS QUE, el saldo origen - 1200, sea igual al saldoOrigeActualizado
 		//AFIRMAMOS QUE, el saldo destino + 1200, sea igual al saldoDestinoActualizado
+		System.out.println("saldoORIGEN" + saldoOrigen + "ACTUALIZADO"+saldoOrigenActualizado);
+		System.out.println("saldoDESTNO" + saldoDestino + "ACTUALIZADO"+saldoDestinoActualizado);
 
-		assertTrue(saldoOrigen.subtract(new BigDecimal(1200)).equals(saldoOrigenActualizado));
-		assertTrue(saldoDestino.add(new BigDecimal(1200)).equals(saldoDestinoActualizado));
+		assertTrue(saldoOrigen.subtract(new BigDecimal(1200)).compareTo(saldoOrigenActualizado)==0);
+		assertTrue(saldoDestino.add(new BigDecimal(1200)).compareTo(saldoDestinoActualizado)==0);
 	}
 
 }

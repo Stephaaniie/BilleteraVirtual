@@ -41,7 +41,7 @@ public class BilleteraController {
     public ResponseEntity<TransaccionResponse> cargarSaldos(@PathVariable Integer id, @RequestBody CargasRequest recarga) { 
         TransaccionResponse response = new TransaccionResponse();
 
-        service.cargarSaldo(service.buscarPorId(id), recarga.importe ,recarga.moneda,recarga.detalle, recarga.motivo, 1);
+        service.cargarSaldo(service.buscarPorId(id), recarga.importe ,recarga.moneda,recarga.detalle, recarga.motivo);
         
         response.isOk = true;
 

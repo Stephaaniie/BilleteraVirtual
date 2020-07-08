@@ -5,6 +5,7 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import ar.com.ada.api.billeteravirtual.entities.Transaccion.TipoTransaccionEnum;
 import ar.com.ada.api.billeteravirtual.models.response.BilleteraResponse;
 
 @Entity
@@ -53,10 +54,10 @@ public class Billetera {
 		cuenta.setBilletera(this);
 	}
 
-	public void cargarCuenta(String moneda,BigDecimal saldo, String detalle, String conceptoOperacion,Integer tipoOperacion) {
+	public void cargarCuenta(String moneda,BigDecimal saldo, String detalle, String conceptoOperacion) {
 		Cuenta cuenta = getCuentaPorMoneda(moneda);
 
-		Transaccion transaccion = cuenta.crearTransaccion(saldo,this,cuenta, detalle, conceptoOperacion, tipoOperacion);
+		Transaccion transaccion = cuenta.crearTransaccion(saldo,this,cuenta, detalle, conceptoOperacion, TipoTransaccionEnum.ENTRANTE);
 		
 		cuenta.agregarTransaccion(transaccion);
 		

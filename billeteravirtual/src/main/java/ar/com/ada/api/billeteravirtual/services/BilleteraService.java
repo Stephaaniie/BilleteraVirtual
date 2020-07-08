@@ -24,9 +24,9 @@ public class BilleteraService {
     }
 
 
-    public void cargarSaldo(Billetera billetera, BigDecimal saldo, String moneda,String detalle, String conceptoOperacion,Integer tipoOperacion) {
+    public void cargarSaldo(Billetera billetera, BigDecimal saldo, String moneda,String detalle, String conceptoOperacion) {
         
-        billetera.cargarCuenta(moneda,saldo, detalle, conceptoOperacion,1);
+        billetera.cargarCuenta(moneda,saldo, detalle, conceptoOperacion);
 
         this.grabar(billetera);
     }

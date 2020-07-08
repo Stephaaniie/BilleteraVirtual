@@ -7,6 +7,8 @@ import javax.persistence.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import ar.com.ada.api.billeteravirtual.entities.Transaccion.TipoTransaccionEnum;
+
 @Entity
 @Table(name = "cuenta")
 public class Cuenta {
@@ -16,8 +18,6 @@ public class Cuenta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer cuentaId;
 	
-	private static final Integer ENTRADA = 1;
-
     private BigDecimal saldo;
 
     private String moneda;
@@ -78,7 +78,7 @@ public class Cuenta {
 		actualizarSaldo(transaccion);
 	}
 
-	public Transaccion crearTransaccion(BigDecimal saldo, String detalle, String conceptoOperacion, Integer tipoOperacion) {
+	public Transaccion crearTransaccion(BigDecimal saldo, String detalle, String conceptoOperacion, TipoTransaccionEnum tipoOperacion) {
 		Transaccion transaccion = new Transaccion();
 
 		transaccion.setCuenta(this);
@@ -91,20 +91,15 @@ public class Cuenta {
 	}
 
 	public void actualizarSaldo(Transaccion transaccion) {
-		this.setSaldo(transaccion.esTransacionEntrada(ENTRADA)?
+		this.setSaldo(transaccion.esTransacionEntrada()?
 		(this.getSaldo().add(transaccion.getImporte())):
 		(this.getSaldo().subtract(transaccion.getImporte())));
 	}
 
-	public void actualizarUsuarios(Transaccion transaccion,Integer id) {
-		transaccion.setaUsuarioId(transaccion.getTipoOperacion().equals(ENTRADA)?
-		(id):this.getCuentaId());
-	}
-
 	public void crearTransaccion(BigDecimal saldo, Cuenta cSaliente, Cuenta cEntrante, Billetera eBilletera,Billetera sBilletera, String detalle, String conceptoOperacion) {
-		Transaccion tEntrante = cEntrante.crearTransaccion(saldo, detalle, conceptoOperacion,1);
+		Transaccion tEntrante = cEntrante.crearTransaccion(saldo, detalle, conceptoOperacion,TipoTransaccionEnum.ENTRANTE);
 		
-		Transaccion tSaliente = cSaliente.crearTransaccion(saldo, detalle, conceptoOperacion,0);
+		Transaccion tSaliente = cSaliente.crearTransaccion(saldo, detalle, conceptoOperacion,TipoTransaccionEnum.SALIENTE);
 
 		tEntrante.setaCuentaId(cEntrante.getCuentaId());
 		tEntrante.setaUsuarioId(eBilletera.getUsuarioId());
@@ -122,7 +117,7 @@ public class Cuenta {
 		cEntrante.agregarTransaccion(tEntrante);
 	}
 
-	public Transaccion crearTransaccion(BigDecimal saldo, Billetera billetera, Cuenta cuenta, String detalle,String conceptoOperacion, Integer tipoOperacion) {
+	public Transaccion crearTransaccion(BigDecimal saldo, Billetera billetera, Cuenta cuenta, String detalle,String conceptoOperacion, TipoTransaccionEnum tipoOperacion) {
 		
 		Transaccion transaccion = cuenta.crearTransaccion(saldo, detalle, conceptoOperacion, tipoOperacion);
 
