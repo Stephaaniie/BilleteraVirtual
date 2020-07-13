@@ -8,6 +8,8 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import ar.com.ada.api.billeteravirtual.entities.Transaccion.TipoTransaccionEnum;
+import ar.com.ada.api.billeteravirtual.models.response.MovimientosResponse;
+import ar.com.ada.api.billeteravirtual.services.UsuarioService;
 
 @Entity
 @Table(name = "cuenta")
@@ -130,6 +132,22 @@ public class Cuenta {
 		transaccion.setaCuentaId(cuenta.getCuentaId());
 				
 		return transaccion;
+	}
+
+	public List<MovimientosResponse> cargarMovimientos(Billetera billetera, List<Transaccion> transacciones,List<MovimientosResponse> res) {
+		for (Transaccion transaccion : transacciones) {
+			MovimientosResponse movimiento = new MovimientosResponse();	
+			movimiento.numeroDeTransaccion = transaccion.getTransaccionId();
+			movimiento.fecha = transaccion.getFecha();
+			movimiento.importe = transaccion.getImporte();
+			movimiento.moneda = transaccion.getMoneda();
+			movimiento.conceptoOperacion = transaccion.getConceptoOperacion();
+			movimiento.tipoOperacion = transaccion.getTipoOperacion();
+			movimiento.detalle = transaccion.getDetalle();	
+			movimiento.aUsuario = billetera.getPersona().getUsuario().getEmail();
+            res.add(movimiento);
+        }
+		return res;
 	}
 
 }

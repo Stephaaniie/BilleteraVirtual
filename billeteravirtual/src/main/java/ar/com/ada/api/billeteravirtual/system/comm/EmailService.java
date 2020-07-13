@@ -1,11 +1,8 @@
 package ar.com.ada.api.billeteravirtual.system.comm;
 
-import java.math.BigDecimal;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import ar.com.ada.api.billeteravirtual.entities.Persona;
 import ar.com.ada.api.billeteravirtual.entities.Usuario;
 import ar.com.ada.api.billeteravirtual.security.Crypto;
 import kong.unirest.HttpResponse;

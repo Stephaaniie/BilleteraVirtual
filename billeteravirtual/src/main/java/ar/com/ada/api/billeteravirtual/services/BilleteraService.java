@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import ar.com.ada.api.billeteravirtual.entities.*;
 import ar.com.ada.api.billeteravirtual.entities.Transaccion.ResultadoTransaccionEnum;
 import ar.com.ada.api.billeteravirtual.models.response.BilleteraResponse;
+import ar.com.ada.api.billeteravirtual.models.response.MovimientosResponse;
 import ar.com.ada.api.billeteravirtual.repos.BilleteraRepository;
 import ar.com.ada.api.billeteravirtual.services.validaciones.*;
 import ar.com.ada.api.billeteravirtual.system.comm.EmailService;
@@ -91,4 +92,29 @@ public class BilleteraService {
 	public List<BilleteraResponse> getCuentas(Billetera billetera) {
         return billetera.getCuentasResponse();
     }
+
+
+	public List<MovimientosResponse> listarTransacciones(Billetera billetera, String moneda) {
+        Cuenta cuenta = billetera.getCuentaPorMoneda(moneda);
+
+        List<Transaccion> transacciones = cuenta.getTransacciones();
+
+        List<MovimientosResponse> response = cuenta.cargarMovimientos(billetera,transacciones,new ArrayList<>());
+
+		return response;
+	}
+
+
+	public List<MovimientosResponse> listarTransacciones(Billetera billetera) {
+        List<Cuenta> cuentas = billetera.getCuentas();
+
+        List<MovimientosResponse> response = new ArrayList<>();
+        
+        for (Cuenta cuenta : cuentas) {
+            List<Transaccion> transacciones = cuenta.getTransacciones();
+
+            response.addAll(cuenta.cargarMovimientos(billetera,transacciones, response));
+        }
+		return response;
+	}
 }

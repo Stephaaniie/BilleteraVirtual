@@ -7,15 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import ar.com.ada.api.billeteravirtual.entities.*;
 import ar.com.ada.api.billeteravirtual.models.request.*;
 import ar.com.ada.api.billeteravirtual.models.response.*;
-import ar.com.ada.api.billeteravirtual.services.BilleteraService;
+import ar.com.ada.api.billeteravirtual.services.*;
 
 @RestController
 public class BilleteraController {
 
     @Autowired
     BilleteraService service;
+
+    @Autowired
+    UsuarioService uService;
 
     @GetMapping("billeteras/{id}/saldos/{moneda}")
     public ResponseEntity<BilleteraResponse> consultarSaldo(@PathVariable Integer id,@PathVariable String moneda) { 
@@ -58,4 +62,23 @@ public class BilleteraController {
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/billeteras/{id}/movimientos/{moneda}")
+    public ResponseEntity<List<MovimientosResponse>> consultarMovimientos(@PathVariable Integer id, @PathVariable String moneda) {
+        Billetera billetera = service.buscarPorId(id);
+        
+        List<MovimientosResponse> res = service.listarTransacciones(billetera, moneda);
+
+        return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/billeteras/{id}/movimientos")
+    public ResponseEntity<List<MovimientosResponse>> consultarMovimientos(@PathVariable Integer id) {
+		Billetera billetera = service.buscarPorId(id);
+        
+        List<MovimientosResponse> res = service.listarTransacciones(billetera);
+
+        return ResponseEntity.ok(res);
+    }
+
 }
