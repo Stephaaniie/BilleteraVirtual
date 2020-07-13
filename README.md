@@ -20,6 +20,11 @@ Algunas imagenes de como se relaciono la interaccion.
 </div>
 
 # Mailgun para el envio de mails.
+Ejemplo de como llegaron las alertas al email autorizado desde Mailgun.
+
+<div style="width: 100%">
+ <img width="49.15%" src="https://github.com/Stephaaniie/BilleteraVirtual/blob/master/billeteravirtual/src/main/resources/img/EMAIL.png"/>
+</div>
 
 
 
