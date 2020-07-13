@@ -16,6 +16,12 @@ import ar.com.ada.api.billeteravirtual.services.*;
 @SpringBootTest
 class DemoApplicationTests {
 
+	private static final Integer ARGENTINA = 32;
+
+
+	private static final Integer DNI = 5;
+
+
 	@Autowired
 	UsuarioService usuarioService;
 
@@ -23,6 +29,7 @@ class DemoApplicationTests {
 	@Autowired
 	BilleteraService billeteraService;
 
+	
 	@Test
 	void EncryptionTest() {
 		String textoClaro = "Este es un texto que todos pueden leer";
@@ -61,7 +68,8 @@ class DemoApplicationTests {
 	@Test
 	void CrearUsuarioTest() {
 
-		Usuario usuario = usuarioService.crearUsuario("Karen", 32, 5 , "21231123", new Date(), "karen@gmail.com", "a12345");
+
+		Usuario usuario = usuarioService.crearUsuario("Karen", ARGENTINA, DNI , "21231123", new Date(), "karen@gmail.com", "a12345");
 		
 		//System.out.println("SALDO de usuario: " + usuario.getPersona().getBilletera().getCuenta("ARS").getSaldo());
 

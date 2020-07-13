@@ -46,8 +46,6 @@ public class Transaccion {
 
 	@Column(name = "a_cuenta_id")
 	private Integer aCuentaId;
-
-	
 	
 	public Integer getTransaccionId() {
 		return transaccionId;
@@ -171,37 +169,47 @@ public class Transaccion {
 		return this.getTipoOperacion() == TipoTransaccionEnum.ENTRANTE;
 	}
 
-	 /***
-     * En este caso es un ENUMERADO con numeracion default En JAVA. Estos comienzan
-     * desde 0 y si intercambiamos el orden el 0 pasa a ser siempre el primero. Si
-     * quisieramos tener uno customizado, en JAVA es mas complejo(se ahoga en un
-     * vaso de agua)
-     */
     public enum TipoTransaccionEnum {
         SALIENTE, // Este es siempre 0
         ENTRANTE // Este es siempre 1
     }
 
     public enum ResultadoTransaccionEnum {
-        ERROR_IMPORTE_NEGATIVO, // Este es siempre 0
-        INICIADA, // Este es siempre 1
-        SALDO_INSUFICIENTE, BILLETERA_DESTINO_NO_ENCONTRADA, BILLETERA_ORIGEN_NO_ENCONTRADA, LIMITE_DIARIO_ALCANZADO,
-        CUENTA_ORIGEN_INEXISTENTE, CUENTA_DESTINO_INEXITENTE, SE_QUIERE_PAGAR_A_SI_MISMO, EMAIL_DESTINO_INEXISTENTE
+        ERROR_IMPORTE_NEGATIVO(0),INICIADA(1),
+		SALDO_INSUFICIENTE(-1),SALDO_APROBADO(100),
+		BILLETERA_NO_ENCONTRADA(-5),BILLETERA_ENCONTRADA(5),
+		LIMITE_DIARIO_ALCANZADO(-30),
+		CUENTA_INEXISTENTE(-10), CUENTA_EXITENTE(10), 
+		SE_QUIERE_PAGAR_A_SI_MISMO(15), 
+		EMAIL_DESTINO_INEXISTENTE(-20),EMAIL_EXISTENTE(20);
+
+        private final int value;
+
+		private ResultadoTransaccionEnum(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public static ResultadoTransaccionEnum parse(int id) {
+            ResultadoTransaccionEnum status = null;
+            for (ResultadoTransaccionEnum item : ResultadoTransaccionEnum.values()) {
+                if (item.getValue() == id) {
+                    status = item;
+                }
+            }
+            return status;
+        }
     }
 
-    /***
-     * En este caso es un ENUMERADO con numeracion customizada En JAVA, los
-     * enumerados con numeros customizados deben tener un constructor y un
-     * comparador para poder funcionar correctamente
-     */
-    // Este es un ejemplo de enumerado de estados customizados.
     public enum EstadoTransaccionEnum {
         PENDIENTE(0), ENVIADA(1), RECIBIDA(2), EJECUTADA(4), FALTA_FONDOS(80), ERROR_GENERAL(99);
 
         private final int value;
 
-        // NOTE: Enum constructor tiene que estar en privado
-        private EstadoTransaccionEnum(int value) {
+		private EstadoTransaccionEnum(int value) {
             this.value = value;
         }
 
@@ -210,11 +218,10 @@ public class Transaccion {
         }
 
         public static EstadoTransaccionEnum parse(int id) {
-            EstadoTransaccionEnum status = null; // Default
+            EstadoTransaccionEnum status = null;
             for (EstadoTransaccionEnum item : EstadoTransaccionEnum.values()) {
                 if (item.getValue() == id) {
                     status = item;
-                    break;
                 }
             }
             return status;

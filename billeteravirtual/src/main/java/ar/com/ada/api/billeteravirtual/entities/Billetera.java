@@ -5,8 +5,11 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import ar.com.ada.api.billeteravirtual.entities.Transaccion.ResultadoTransaccionEnum;
 import ar.com.ada.api.billeteravirtual.entities.Transaccion.TipoTransaccionEnum;
 import ar.com.ada.api.billeteravirtual.models.response.BilleteraResponse;
+import ar.com.ada.api.billeteravirtual.services.validaciones.Validation;
+import ar.com.ada.api.billeteravirtual.services.validaciones.ValidationList;
 
 @Entity
 @Table(name = "billetera")
@@ -22,7 +25,13 @@ public class Billetera {
     private Persona persona;
 
     @OneToMany(mappedBy = "billetera",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private List<Cuenta> cuentas = new ArrayList<>();
+	private List<Cuenta> cuentas = new ArrayList<>();
+	
+	@Transient
+	private Validation validacion = new Validation();
+
+	@Transient
+	private ValidationList vList = new ValidationList();
 
 	public Integer getBilleteraId() {
 		return billeteraId;
@@ -54,13 +63,15 @@ public class Billetera {
 		cuenta.setBilletera(this);
 	}
 
-	public void cargarCuenta(String moneda,BigDecimal saldo, String detalle, String conceptoOperacion) {
+	public void cargarCuenta(List<ResultadoTransaccionEnum> resultados,String moneda,BigDecimal saldo, String detalle, String conceptoOperacion) {
 		Cuenta cuenta = getCuentaPorMoneda(moneda);
+		resultados.add(validacion.validarCuenta(cuenta));
+		resultados.add(validacion.validarCuentaSaliente(cuenta, saldo));
+		resultados.add(validacion.validarImporte(saldo));
 
 		Transaccion transaccion = cuenta.crearTransaccion(saldo,this,cuenta, detalle, conceptoOperacion, TipoTransaccionEnum.ENTRANTE);
 		
 		cuenta.agregarTransaccion(transaccion);
-		
 	}
 
 	public Integer getUsuarioId() {
@@ -106,10 +117,14 @@ public class Billetera {
 		return responses;
 	}
 
-	public void enviarSaldo(Billetera deBilletera, Billetera aBilletera,String moneda,BigDecimal saldo, String detalle, String conceptoOperacion) {
+	public void enviarSaldo(List<ResultadoTransaccionEnum> resultados, Billetera deBilletera, Billetera aBilletera,String moneda,BigDecimal saldo, String detalle, String conceptoOperacion) {
 		Cuenta cSaliente = deBilletera.getCuentaPorMoneda(moneda);
-		
+		resultados.add(validacion.validarCuenta(cSaliente));
+		resultados.add(validacion.validarCuentaSaliente(cSaliente, saldo));
+		resultados.add(validacion.validarImporte(saldo));
+
 		Cuenta cEntrante = aBilletera.getCuentaPorMoneda(moneda);
+		resultados.add(validacion.validarCuenta(cEntrante));
 
 		cSaliente.crearTransaccion(saldo,cSaliente,cEntrante,aBilletera, this, detalle, conceptoOperacion);
 	}

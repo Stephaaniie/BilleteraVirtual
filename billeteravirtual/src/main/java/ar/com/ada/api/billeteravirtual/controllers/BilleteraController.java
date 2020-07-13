@@ -41,10 +41,8 @@ public class BilleteraController {
     public ResponseEntity<TransaccionResponse> cargarSaldos(@PathVariable Integer id, @RequestBody CargasRequest recarga) { 
         TransaccionResponse response = new TransaccionResponse();
 
-        service.cargarSaldo(service.buscarPorId(id), recarga.importe ,recarga.moneda,recarga.detalle, recarga.motivo);
+        response.isOk = service.cargarSaldo(service.buscarPorId(id), recarga.importe ,recarga.moneda,recarga.detalle, recarga.motivo);
         
-        response.isOk = true;
-
         response.menssage = "La recarga se realizo exitosamente";
 
         return ResponseEntity.ok(response);
@@ -54,10 +52,8 @@ public class BilleteraController {
     public ResponseEntity<TransaccionResponse> enviarSaldo(@PathVariable Integer id,@RequestBody EnvioDeSaldoRequest envio) { 
         TransaccionResponse response = new TransaccionResponse();
 
-        service.enviarSaldo(id, envio.email, envio.moneda, envio.saldo, envio.detalle, envio.motivo);
+        response.isOk = service.enviarSaldo(id, envio.email, envio.moneda, envio.saldo, envio.detalle, envio.motivo);
         
-        response.isOk = true;
-
         response.menssage = "El envio se realizo exitosamente";
 
         return ResponseEntity.ok(response);
