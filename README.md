@@ -6,10 +6,16 @@ Proyecto con Springboot.
 
 Se utiliza:
 # MySQL como DB. 
-# Postman para probar la WEB API
-# Mailgun para el envio de mails.
-
+Como muestra la imagen, asi quedan relacionadas las tablas:
 
 <div style="width: 100%">
  <img width="49.15%" src="https://github.com/Stephaaniie/BilleteraVirtual/blob/master/billeteravirtual/src/main/resources/img/diagramaDeBaseDato.png"/>
 </div>
+
+# Postman para probar la WEB API.
+Algunas imagenes de como se relaciono la interaccion.
+
+# Mailgun para el envio de mails.
+
+
+
