@@ -2,15 +2,22 @@ package ar.com.ada.api.billeteravirtual.services;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
 
 import ar.com.ada.api.billeteravirtual.entities.*;
+import ar.com.ada.api.billeteravirtual.models.response.LoginResponse;
 import ar.com.ada.api.billeteravirtual.repos.UsuarioRepository;
 import ar.com.ada.api.billeteravirtual.security.Crypto;
 import ar.com.ada.api.billeteravirtual.system.comm.EmailService;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class UsuarioService {
@@ -72,5 +79,26 @@ public class UsuarioService {
 
     public Usuario getUsuarioPorId(Integer id){
       return usuarioRepository.findByUsuarioId(id);
-    }
+  }
+
+  public String getJWTToken(String username) {
+		String secretKey = "mySecretKey";
+		List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");
+		
+		String token = Jwts.builder().setId("softtekJWT").setSubject(username).claim("authorities",
+		grantedAuthorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList())).setIssuedAt(new Date(System.currentTimeMillis())).setExpiration(new Date(System.currentTimeMillis() + 600000)).signWith(SignatureAlgorithm.HS512,
+		secretKey.getBytes()).compact();
+
+		return "Bearer " + token;
+	}
+
+  public LoginResponse loginResponse(Usuario u, String token, String username) {
+    LoginResponse r = new LoginResponse(); 
+    r.id = u.getUsuarioId(); 
+    r.billeteraId = u.getPersona().getBilletera().getBilleteraId(); 
+    r.username = username; 
+    r.email = u.getEmail(); 
+    r.token = token; 
+	  return r;
+  }
 }

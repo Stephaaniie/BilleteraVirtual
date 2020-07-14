@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import ar.com.ada.api.billeteravirtual.entities.*;
@@ -31,7 +32,7 @@ public class BilleteraController {
 
         return ResponseEntity.ok(response);
     }
-
+    
     @GetMapping("billeteras/{id}/saldos")
     public ResponseEntity<List<BilleteraResponse>> consultarSaldos(@PathVariable Integer id) { 
         List<BilleteraResponse> responses = new ArrayList<>();
