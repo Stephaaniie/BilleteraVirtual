@@ -1,0 +1,4 @@
+
+exclude_paths:
+  - '.mvn/**/*'
+  - 'src/main/resources/**/*'

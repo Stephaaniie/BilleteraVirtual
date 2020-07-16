@@ -11,8 +11,8 @@
 	<groupId>ar.com.ada.api</groupId>
 	<artifactId>billeteravirtual</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>billeteravirtual</name>
+	<description>BilletraVirtual proyecto realizado en spring boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
