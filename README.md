@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/Stephaaniie/BilleteraVirtual.svg?branch=master)](https://travis-ci.org/Stephaaniie/BilleteraVirtual)
 [![codecov](https://codecov.io/gh/Stephaaniie/BilleteraVirtual/branch/master/graph/badge.svg)](https://codecov.io/gh/Stephaaniie/BilleteraVirtual)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f19f544d7cb14e4e8f9f0449b3786b6a)](https://www.codacy.com/manual/Stephaaniie/BilleteraVirtual?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Stephaaniie/BilleteraVirtual&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/77ead01d-5121-4ec8-9b8a-2b66fb8c6d07)](https://www.codacy.com/manual/Stephaaniie/BilleteraVirtual?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Stephaaniie/BilleteraVirtual&amp;utm_campaign=Badge_Grade)
 
 # BilleteraVirtual
 
