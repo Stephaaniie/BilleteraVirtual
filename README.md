@@ -30,5 +30,8 @@ Ejemplo de como llegaron las alertas al email autorizado desde Mailgun.
  <img width="49.15%" src="https://github.com/Stephaaniie/BilleteraVirtual/blob/master/billeteravirtual/src/main/resources/img/EMAIL.png"/>
 </div>
 
+# Heroku
+Se deployó con Heroku con Postgre para base de datos.
+<a href="https://scbilleteravirtual.herokuapp.com/" target="_blank">API scbilleteravirtual<a>
 
 
