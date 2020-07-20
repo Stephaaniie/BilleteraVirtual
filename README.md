@@ -1,7 +1,6 @@
-[![Build Status](https://travis-ci.org/Stephaaniie/BilleteraVirtual.svg?branch=master)](https://travis-ci.org/Stephaaniie/BilleteraVirtual)
-[![codecov](https://codecov.io/gh/Stephaaniie/BilleteraVirtual/branch/master/graph/badge.svg)](https://codecov.io/gh/Stephaaniie/BilleteraVirtual)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f19f544d7cb14e4e8f9f0449b3786b6a)](https://www.codacy.com/manual/Stephaaniie/BilleteraVirtual?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Stephaaniie/BilleteraVirtual&amp;utm_campaign=Badge_Grade)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3c7f1ef1f9524096840faed35e3645fd)](https://app.codacy.com/manual/Stephaaniie/BilleteraVirtual?utm_source=github.com&utm_medium=referral&utm_content=Stephaaniie/BilleteraVirtual&utm_campaign=Badge_Grade_Settings)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c2ab73f1ac504f91add3852976faa073)](https://www.codacy.com/manual/Stephaaniie/BilleteraVirtual?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Stephaaniie/BilleteraVirtual&amp;utm_campaign=Badge_Grade)
 # BilleteraVirtual
 
 WEB API. Billetera Virtual.
