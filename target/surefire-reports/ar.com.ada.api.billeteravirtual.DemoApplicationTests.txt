@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: ar.com.ada.api.billeteravirtual.DemoApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 180.324 s - in ar.com.ada.api.billeteravirtual.DemoApplicationTests
