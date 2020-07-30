@@ -15,26 +15,49 @@ Se utiliza:
 Como muestra la imagen, asi quedan relacionadas las tablas:
 
 <div style="width: 100%">
- <img width="49.15%" src="https://github.com/Stephaaniie/BilleteraVirtual/blob/master/billeteravirtual/src/main/resources/img/diagramaDeBaseDato.png"/>
+ <img width="49.15%" src="https://github.com/Stephaaniie/BilleteraVirtual/blob/master/src/main/resources/img/diagramaDeBaseDato.png"/>
 </div>
 
-# Postman para probar la WEB API.
+### POSTMAN :shipit:
+Para la solicitud de los WebMetodos.
 Algunas imagenes de como se relaciono la interaccion.
 
 <div style="width: 100%">
- <img width="49.15%" src="https://github.com/Stephaaniie/BilleteraVirtual/blob/master/billeteravirtual/src/main/resources/img/Postman.png"/>
+ <img width="49.15%" src="https://github.com/Stephaaniie/BilleteraVirtual/blob/master/src/main/resources/img/Postman.png"/>
 </div>
 
-# Mailgun para el envio de mails.
+A continuacion del mismo se adjuntara el acceso a los request de Postman.
+
+<a href="https://documenter.getpostman.com/view/12223320/T1DtfbSd?version=latest" target="_blank">API scbilleteravirtual<a>
+
+# MAILGUM :mailbox: :love_letter:
+Para poder notificar con mails el login del usuario o los intentos fallidos, ademas de notificar cada transacción que realiza el usuario.
 Ejemplo de como llegaron las alertas al email autorizado desde Mailgun.
 
 <div style="width: 100%">
- <img width="49.15%" src="https://github.com/Stephaaniie/BilleteraVirtual/blob/master/billeteravirtual/src/main/resources/img/EMAIL.png"/>
+ <img width="49.15%" src="https://github.com/Stephaaniie/BilleteraVirtual/blob/master/src/main/resources/img/EMAIL.png"/>
 </div>
 
-# Heroku
+# HEROKU
 Se deployó con Heroku con Postgre para base de datos.
 <a href="https://scbilleteravirtual.herokuapp.com/" target="_blank">API scbilleteravirtual<a>
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c2ab73f1ac504f91add3852976faa073)](https://www.codacy.com/manual/Stephaaniie/BilleteraVirtual?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Stephaaniie/BilleteraVirtual&amp;utm_campaign=Badge_Grade)
+### Pre-requisitos 📋
+
+* **Tener instalado**
+    ```
+        JAVA 11
+        MAVEN 3.6.0
+    ```
+
+### Instalación 🔧
+     El proyecto tiene integrada la carpeta de .mnv por lo cual se instalara automaticamente Maven.
+     Para la ejecucion del proyecto debera ejecutar:
+        - mvn clean (limpiar el target).
+        - mvn verify (Verifica que todas las dependencias esten instaladas correctamente).
+        - mvn compile (Compila el proyecto).
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/347448a36dc446868baf39c9a37852b5)](https://www.codacy.com/manual/Stephaaniie/BilleteraVirtual?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Stephaaniie/BilleteraVirtual&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/1c524e61cd8640e79b80d406eda8754b)](https://www.codacy.com/manual/Stephaaniie/Stephix?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Stephaaniie/Stephix&amp;utm_campaign=Badge_Coverage)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.codacy/codacy-coverage-reporter/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.codacy/codacy-coverage-reporter)
 
