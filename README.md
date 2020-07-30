@@ -2,16 +2,19 @@
 
 WEB API. El proyecto de Spring Boot que se Deployo en Heroku. La BilleteraVirtual es un sistema de transferencia de dinero electrónico con el que se pueden hacer múltiples operaciones financieras(enviar saldo, consultar saldo, cargar saldo, etc.). 
 
-# Para el almacenamiento se genero de dos maneras.
+* **Para el almacenamiento se genero de dos maneras.**
 
-1) Se utilizo inicalmente como base de datos MYSQL. 
+    ```
+        1) Se utilizo inicalmente como base de datos MYSQL. 
 
-2) Al deployar con Heroku se utilizó Postgre para base de datos.
+        2) Al deployar con Heroku se utilizó Postgre para base de datos.
 
-Se utilizó Postman para probar la WEB API. Se utilizó el servicio de MAILGUN para poder notificar con mails transaccionales los movimientos realizados en la billetera. Se realizaron Tests Unitarios y se utilizó JWT Token para seguridad. Se trabajaron ramas y se probaron Pull Requests. 
+        Se utilizó Postman para probar la WEB API. Se utilizó el servicio de MAILGUN para poder notificar con mails transaccionales los movimientos realizados en la billetera. Se realizaron Tests Unitarios y se utilizó JWT Token para seguridad. Se trabajaron ramas y se probaron Pull Requests.
+    ```
+ 
 
 Se utiliza:
-# MySQL como DB. 
+### MySQL como DB. 
 Como muestra la imagen, asi quedan relacionadas las tablas:
 
 <div style="width: 100%">
@@ -28,9 +31,9 @@ Algunas imagenes de como se relaciono la interaccion.
 
 A continuacion del mismo se adjuntara el acceso a los request de Postman.
 
-<a href="https://documenter.getpostman.com/view/12223320/T1DtfbSd?version=latest" target="_blank">API scbilleteravirtual<a>
+<a href="https://documenter.getpostman.com/view/12223320/T1DtfbSd?version=latest" target="_blank">ACCESO A REQUEST POSTMAN<a>
 
-# MAILGUM :mailbox: :love_letter:
+### MAILGUM :mailbox: :love_letter:
 Para poder notificar con mails el login del usuario o los intentos fallidos, ademas de notificar cada transacción que realiza el usuario.
 Ejemplo de como llegaron las alertas al email autorizado desde Mailgun.
 
@@ -38,7 +41,7 @@ Ejemplo de como llegaron las alertas al email autorizado desde Mailgun.
  <img width="49.15%" src="https://github.com/Stephaaniie/BilleteraVirtual/blob/master/src/main/resources/img/EMAIL.png"/>
 </div>
 
-# HEROKU
+### HEROKU
 Se deployó con Heroku con Postgre para base de datos.
 <a href="https://scbilleteravirtual.herokuapp.com/" target="_blank">API scbilleteravirtual<a>
 
