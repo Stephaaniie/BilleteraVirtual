@@ -2,33 +2,21 @@ package ar.com.ada.api.billeteravirtual;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import ar.com.ada.api.billeteravirtual.entities.*;
 import ar.com.ada.api.billeteravirtual.security.Crypto;
 import ar.com.ada.api.billeteravirtual.services.*;
 
 @SpringBootTest
 class DemoApplicationTests {
 
-	private static final Integer ARGENTINA = 32;
-
-
-	private static final Integer DNI = 5;
-
-
 	@Autowired
 	UsuarioService usuarioService;
 
-
 	@Autowired
 	BilleteraService billeteraService;
-
 	
 	@Test
 	void EncryptionTest() {
