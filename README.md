@@ -1,8 +1,8 @@
-# BilleteraVirtual
+# BilleteraVirtual :dollar: :octocat:
 
 WEB API. El proyecto de Spring Boot que se Deployo en Heroku. La BilleteraVirtual es un sistema de transferencia de dinero electrónico con el que se pueden hacer múltiples operaciones financieras(enviar saldo, consultar saldo, cargar saldo, etc.). 
 
-* **Para el almacenamiento se genero de dos maneras.**
+* **Para el almacenamiento se genero de dos maneras.** 
 
     ```
         1) Se utilizo inicalmente como base de datos MYSQL. 
@@ -14,7 +14,7 @@ WEB API. El proyecto de Spring Boot que se Deployo en Heroku. La BilleteraVirtua
  
 
 Se utiliza:
-### MySQL como DB. 
+### MySQL como DB. :open_file_folder:
 Como muestra la imagen, asi quedan relacionadas las tablas:
 
 <div style="width: 100%">
@@ -41,7 +41,7 @@ Ejemplo de como llegaron las alertas al email autorizado desde Mailgun.
  <img width="49.15%" src="https://github.com/Stephaaniie/BilleteraVirtual/blob/master/src/main/resources/img/EMAIL.png"/>
 </div>
 
-### HEROKU
+### HEROKU :computer:
 Se deployó con Heroku con Postgre para base de datos.
 <a href="https://scbilleteravirtual.herokuapp.com/" target="_blank">API scbilleteravirtual<a>
 
