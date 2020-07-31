@@ -1,4 +1,4 @@
-# BilleteraVirtual :purse: :dollar: :octocat:
+# BilleteraVirtual  :purse: :dollar: :octocat:
 
 WEB API. El proyecto de Spring Boot que se Deployo en Heroku. La BilleteraVirtual es un sistema de transferencia de dinero electrónico con el que se pueden hacer múltiples operaciones financieras(enviar saldo, consultar saldo, cargar saldo, etc.). 
 
