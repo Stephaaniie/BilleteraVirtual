@@ -30,7 +30,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     Usuario login(String username, String password);
 
-	Usuario findByName(String username);
-
 	LoginResponse loginResponse(Usuario u, String token, String username);
 }
