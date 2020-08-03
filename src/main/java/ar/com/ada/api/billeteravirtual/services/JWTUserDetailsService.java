@@ -21,11 +21,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @Service
 public class JWTUserDetailsService implements UserDetailsService {
     
-    private final UsuarioService usuarioService;
-
-    public JWTUserDetailsService(UsuarioService as) {
-        this.usuarioService = as;
-    }
+    @Autowired
+    UsuarioService usuarioService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
