@@ -11,8 +11,6 @@ import ar.com.ada.api.billeteravirtual.models.response.BilleteraResponse;
 
 public interface BilleteraRepository extends JpaRepository<Billetera, Integer> {
     
-    Billetera findByUsuarioId(Integer usuarioId);
-
     List<Billetera> findByPersona(Persona persona);
     
     List<Billetera> findByCuentasResponse(List<BilleteraResponse> cuentasResponse);
