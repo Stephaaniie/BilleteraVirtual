@@ -26,8 +26,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     Usuario findByEmail(String email);
 
-    List<Usuario> findByBilletera(Billetera billetera);
-
     Usuario login(String username, String password);
 
 	LoginResponse loginResponse(Usuario u, String token, String username);
