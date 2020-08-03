@@ -28,6 +28,4 @@ public interface PersonaRepository extends JpaRepository<Persona, Integer> {
     List<Persona> findByTipoDocumento(Integer tipoDocumento);
 
     List<Persona> findByUsuario(Usuario usuario);
-
-    List<Persona> findByUsuarioId(Integer usuarioId);
 }
