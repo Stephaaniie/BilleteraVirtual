@@ -43,7 +43,7 @@ Ejemplo de como llegaron las alertas al email autorizado desde Mailgun.
 
 ### HEROKU :computer:
 Se deployó con Heroku con Postgre para base de datos.
-<a href="https://scbilleteravirtual.herokuapp.com/" target="_blank">API scbilleteravirtual<a>
+<a href="https://billetera-virtual-sc.herokuapp.com/" target="_blank">API billetera-virtual-sc<a>
 
 ### Pre-requisitos 📋
 
