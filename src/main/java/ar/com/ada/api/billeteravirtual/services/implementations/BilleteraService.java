@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ar.com.ada.api.billeteravirtual.entities.Billetera;
 import ar.com.ada.api.billeteravirtual.entities.Cuenta;
@@ -21,6 +22,7 @@ import ar.com.ada.api.billeteravirtual.services.validaciones.Validation;
 import ar.com.ada.api.billeteravirtual.services.validaciones.ValidationList;
 import ar.com.ada.api.billeteravirtual.system.comm.EmailService;
 
+@Service
 public class BilleteraService implements IBilleteraService {
       
     @Autowired
