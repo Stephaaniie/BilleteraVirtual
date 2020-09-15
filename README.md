@@ -61,6 +61,5 @@ Se deployó con Heroku con Postgre para base de datos.
         - mvn compile (Compila el proyecto).
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/347448a36dc446868baf39c9a37852b5)](https://www.codacy.com/manual/Stephaaniie/BilleteraVirtual?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Stephaaniie/BilleteraVirtual&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/1c524e61cd8640e79b80d406eda8754b)](https://www.codacy.com/manual/Stephaaniie/Stephix?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Stephaaniie/Stephix&amp;utm_campaign=Badge_Coverage)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.codacy/codacy-coverage-reporter/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.codacy/codacy-coverage-reporter)
 
